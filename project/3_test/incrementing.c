@@ -39,9 +39,12 @@ void blink_Update_Red(){
   }
 }
 
-void both_Blink(){ //controls and calls the 2 updates for green and red led
+void blink_green(){ //controls and calls the 2 updates for green and red led
   blink_Update_Green(); //self explanatory
-  blink_Update_Red(); // self explanatory
+}
+
+void blink_red(){
+  blink_Update_Red();// self explanatory
 }
 
 void red_Control(int on){ //control red LED
@@ -51,6 +54,7 @@ void red_Control(int on){ //control red LED
     P1OUT &= ~LED_RED;
   }
 }
+
 void green_Control(int on){ //controls green LED
   if(on){
     P1OUT |= LED_GREEN;
@@ -71,12 +75,16 @@ void second_Update(){ //called 250 times per second 250 calls/ 1 sec = 1 call = 
 void blink_Lim(){
   blinkLimit++;
   if(blinkLimit >= 8)
-    blinkLimit = 0;
+    blinkLimit= 0;
 }
 
-void time_Adv_SM(){
-  both_Blink(); // handles green and red LED statemachines
-  second_Update(); // updates seconds called 
+void time_Adv_SM_Green(){
+  blink_green(); // handles green LED statemachines
+  second_Update(); // updates seconds same clock as red
+}
+void time_Adv_SM_Red(){
+  blink_red();//handles red LED statemachine
+  second_Update(); // updates seconds same clock as green
 }
 
 void
