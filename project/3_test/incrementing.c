@@ -2,17 +2,12 @@
 #include <msp430.h>
 #include "libTimer.h"
 #include "led.h"
-
-int main(void){
-
-  P1DIR |= LEDS;
-  P1OUT &= ~LED_GREEN;
-  P1OUT |= LED_RED;
-
+#include "switches.h"
+#include "incrementing.h"
+void wdt_init(){
+  
   configureClocks();
   enableWDTInterrupts();
-  
-  or_sr(0x18);
 
 }
 
@@ -77,7 +72,7 @@ void blink_Lim(){
   if(blinkLimit >= 8)
     blinkLimit= 0;
 }
-
+/*
 void time_Adv_SM_Green(){
   blink_green(); // handles green LED statemachines
   second_Update(); // updates seconds same clock as red
@@ -86,9 +81,10 @@ void time_Adv_SM_Red(){
   blink_red();//handles red LED statemachine
   second_Update(); // updates seconds same clock as green
 }
-
+*/
 void
 __interrupt_vec(WDT_VECTOR) WDT(){ //250interrupts/1sec
   //advances state machine
-  time_Adv_SM();
+  second_Update();
+  led_update();
 }
