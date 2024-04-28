@@ -1,5 +1,6 @@
 #include <msp430.h>
 #include "switches.h"
+#include "incrementing.h"
 /* Switch on P1 (S2) */
 void
 __interrupt_vec(PORT1_VECTOR) Port_1(){
@@ -9,3 +10,8 @@ __interrupt_vec(PORT1_VECTOR) Port_1(){
   }
 }
 
+void
+__interrupt_vec(WDT_VECTOR) WDT(){ //250 interrupts/1sec
+  //second_Update(); // updates blinkLimit and seconds
+  led_update();//manages leds control 
+}
