@@ -13,42 +13,42 @@ void wdt_init(){
 }
 
 static int blinkLimit = 3;
-void blink_Update_Green(){
+void blink_Update_Red(){
   static int blinkCount_g = 0;
   blinkCount_g--;
   if(blinkCount_g <= blinkLimit){
     blinkCount_g=6;
     P1OUT &= ~BIT0;
-    green_Control(1);
+    red_Control(1);
   } else {
     P1OUT &= ~BIT0;
-    green_Control(0);
+    red_Control(0);
   }
 }
 
-void blink_Update_Red(){
+void blink_Update_Green(){
   static int blinkCount_r = 0;
   blinkCount_r++;
   if(blinkCount_r >= blinkLimit){
     blinkCount_r = 0;
     P1OUT &= ~BIT6;
-    red_Control(1);
+    green_Control(1);
   } else {
     P1OUT &= ~BIT6;
-    red_Control(0);
+    green_Control(0);
   }
 }
 
 void blink_green(){ //controls and calls the 2 updates for green and red led
-  blink_Update_Green(); //self explanatory
+  blink_Update_Red(); //self explanatory
   
 }
 
 void blink_red(){
-  blink_Update_Red();// self explanatory
+  blink_Update_Green();// self explanatory
 }
 
-void red_Control(int on){ //control red LED
+void green_Control(int on){ //control red LED
   if(on){
     P1OUT |= LED_RED;
   } else{
@@ -56,7 +56,7 @@ void red_Control(int on){ //control red LED
   }
 }
 
-void green_Control(int on){ //controls green LED
+void red_Control(int on){ //controls green LED
   if(on){
     P1OUT |= LED_GREEN;
   } else{
