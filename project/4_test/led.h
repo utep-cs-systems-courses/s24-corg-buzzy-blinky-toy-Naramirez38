@@ -24,7 +24,9 @@ void s2_SM();
 void blinkers_Green();
 void blinkers_Red();
 void change_State(short new_state);
+void buzzer_Update();
 // these are boolesan flags
-extern unsigned char state, led_Flags, leds_changed, green_led_state, red_led_state;
+extern unsigned char was_Pressed, gone_Once, state, led_Flags, leds_changed, green_led_state, red_led_state;
+extern unsigned long frqz;
 
 #endif

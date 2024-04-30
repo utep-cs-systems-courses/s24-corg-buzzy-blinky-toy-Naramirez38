@@ -25,10 +25,12 @@ __interrupt_vec(PORT2_VECTOR) Port_2(){
   }
   if(P2IFG & BIT2){
     P2IFG &= ~(BIT2);
+    was_Pressed = 1;
     change_State(2);
   }
   if(P2IFG & BIT3){
     P2IFG &= ~(BIT3);
+    was_Pressed = 0;
     change_State(3);
   }
 }
@@ -38,4 +40,7 @@ __interrupt_vec(WDT_VECTOR) WDT(){ //250 interrupts/1sec
   // second_Update(); // updates blinkLimit and seconds
   //led_update();//manages leds control
   s2_SM();
+  if(was_Pressed != 1){
+  buzzer_Update();
+  }
 }

@@ -22,7 +22,8 @@ switch_init()			/* setup switch */
   P1OUT |= SWITCHES;		/* pull-ups for switches */
   P1DIR &= ~SWITCHES;		/* set switches' bits for input */
   switch_update_interrupt_sense();
-  led_update();
+  //buzzer_Update();
+  // led_update();
 }
 void switch_sense(){
   P2IES |= EXP_SWITCH;
