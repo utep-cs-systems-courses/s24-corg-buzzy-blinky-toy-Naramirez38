@@ -1,6 +1,9 @@
 #include <msp430.h>
 #include "libTimer.h"
 #include "buzzer.h"
+#include "incrementing.h"
+#include "led.h"
+#include "switches.h"
 
 void buzzer_init()
 {
@@ -24,8 +27,162 @@ void buzzer_set_period(short cycles) /* buzzer clock = 2MHz.  (period of 1k resu
   CCR1 = cycles >> 2;		/* one half cycle */
 }
 
+void
+measure_1(unsigned char input){
+  switch(input){
 
-    
-    
-  
+  case '1':
+    notes_play = 1;
+    s3_SM(notes_play);
+    break;
 
+  case '2':
+    notes_play = 0;
+    s3_SM(notes_play);
+    notes_play = 1;
+    s3_SM(notes_play);
+    break;
+
+  case '3':
+    notes_play = 6;
+    s3_SM(notes_play);
+    break;
+
+  case '4':
+    notes_play = 1;
+    s3_SM(notes_play);
+    break;
+
+  case '5':
+    notes_play = 0;
+    s3_SM(notes_play);
+    notes_play = 1;
+    s3_SM(notes_play);
+    break;
+
+  case '6':
+    notes_play = 5;
+    s3_SM(notes_play);
+    break;
+    
+  case '7':
+    notes_play = 1;
+    s3_SM(notes_play);
+    break;
+    
+  case '8':
+    notes_play = 0;
+    s3_SM(notes_play);
+    notes_play = 1;
+    s3_SM(notes_play);
+    break;
+    
+  default:
+    buzzer_set_period(F_3);
+  } 
+}
+
+void
+measure_2(){
+  switch(notes){
+
+  case '1':
+    notes_play = 4;
+    s3_SM(notes_play);
+    break;
+
+  case '2':
+    notes_play = 1;
+    s3_SM(notes_play);
+    break;
+
+  case '3':
+    notes_play = 0;
+    s3_SM(notes_play);
+    notes_play = 1;
+    s3_SM(notes_play);
+    break;
+
+  case '4':
+    notes_play = 3;
+    s3_SM(notes_play);
+    break;
+
+  case '5':
+    notes_play = 1;
+    s3_SM(notes_play);
+    break;
+
+  case '6':
+    notes_play = 0;
+    s3_SM(notes_play);
+    notes_play = 1;
+    s3_SM(notes_play);
+    break;
+
+  case '7':
+    notes_play = 2;
+    s3_SM(notes_play);
+    break;
+
+  case '8':
+    notes_play = 3;
+    s3_SM(notes_play);
+    break;
+
+  default:
+    buzzer_set_period(F_3);
+    break;
+  }
+} 
+
+void
+measure_3(){
+  switch(notes){
+    case '1':
+      notes_play = 4;
+      s3_SM(notes_play);
+      break;
+
+    case '2':
+      notes_play = 1;
+      s3_SM(notes_play);
+      break;
+
+    case '3':
+      notes_play = 0;
+      s3_SM(notes_play);
+      notes_play = 1;
+      s3_SM(notes_play);
+      break;
+
+    case '4':
+      notes_play = 1;
+      s3_SM(notes_play);
+      break;
+
+    case '5':
+      notes_play = 4;
+      s3_SM(notes_play);
+      break;
+
+    case '6':
+      notes_play = 4;
+      s3_SM(notes_play);
+      break;
+
+    case '7':
+      notes_play = 4;
+      s3_SM(notes_play);
+      break;
+
+    case '8':
+      notes_play = 4;
+      s3_SM(notes_play);
+      break;
+
+    default:
+      buzzer_set_period(F_3);
+      break;
+    } 
+}

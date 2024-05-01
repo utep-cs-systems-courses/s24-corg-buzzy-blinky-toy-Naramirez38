@@ -4,6 +4,11 @@
 #include "led.h"
 #include "switches.h"
 #include "incrementing.h"
+#include "buzzer.h"
+
+unsigned char notes_play, notes = 0;
+unsigned char measures = 1;
+
 void wdt_init(){
   
   configureClocks();
@@ -17,10 +22,10 @@ void blink_Update_Red(){
   blinkCount_g--;
   if(blinkCount_g <= blinkLimit){
     blinkCount_g=7;
-    P1OUT &= ~BIT0;
+    //P1OUT &= ~BIT0;
     red_Control(1);
   } else {
-    P1OUT &= ~BIT0;
+    //P1OUT &= ~BIT0;
     red_Control(0);
   }
 }
@@ -30,10 +35,10 @@ void blink_Update_Green(){
   blinkCount_r++;
   if(blinkCount_r >= blinkLimit){
     blinkCount_r = 0;
-    P1OUT &= ~BIT6;
+    //P1OUT &= ~BIT6;
     green_Control(1);
   } else {
-    P1OUT &= ~BIT6;
+    //P1OUT &= ~BIT6;
     green_Control(0);
   }
 }
@@ -71,12 +76,22 @@ void second_Update(){ //called 250 times per second 250 calls/ 1 sec = 1 call = 
     blink_Lim();
   }
 }
-void timing_BPM(){ //288 BPM more or less
+
+void timing_BPM(){ //240 BPM more or less
   static int change_notes = 0;
-  static int where_am_i =  0;
   change_notes++;
-  if(change_notes >= 32)//every eighth note
-    
+  if(change_notes >= 250/*32*/){//increment eighth notes
+    change_notes = 0;
+    notes++;
+    if(notes >= 9){//controls where beat is
+      notes = 1;
+      measures++;
+      if(measures >= 5){//controls which measure is played
+	measures = 1;
+	
+      }
+    }
+  }
 }
 void blink_Lim(){
   blinkLimit++;

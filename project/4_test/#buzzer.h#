@@ -10,7 +10,7 @@
 
 void buzzer_init();
 void buzzer_set_period(short cycles);
-void measure_1(unsigned char input);
+void measure_1();
 void measure_2();
 void measure_3();
 #endif // included

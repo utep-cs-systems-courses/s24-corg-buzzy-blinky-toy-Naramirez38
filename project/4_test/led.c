@@ -3,7 +3,7 @@
 #include "switches.h"
 #include "incrementing.h"
 #include "buzzer.h"
-unsigned char measures, notes_play,notes, was_Pressed, gone_Once, led_Flags, state = 0;
+unsigned char play_Tune, was_Pressed, gone_Once, led_Flags, state = 0;
 unsigned long frqz = 4000;
 void led_init()
 {
@@ -79,6 +79,7 @@ s2_SM(){
 
   case 0:
     blinkers_Red();
+    buzzer_set_period(frqz);
     break;
 
   case 1:
@@ -86,10 +87,11 @@ s2_SM(){
     break;
       
   case 2:
-    buzzer_set_period(frqz);
-    /*if(switch_state_down){
-      state = 0;
-      }*/
+    blinkers_Green();
+    /*if(play_Tune){
+    buzzer_set_period(DB_4);
+    }*/
+    // measure_1(1);
     break;
 
   case 3:
@@ -105,15 +107,16 @@ s2_SM(){
     break;
   }
 }
+
 void
-change_Note(char new_Note){
+change_Note(unsigned char new_Note){
   notes = new_Note;
-  s3_SM();
+  s3_SM(notes_play);
 }
 
 void
-s3_SM(){
-  switch(notes_play){
+s3_SM(unsigned char input){
+  switch(input){
   case '1':
     buzzer_set_period(F_3);
     break;
@@ -125,14 +128,18 @@ s3_SM(){
   case '3':
     buzzer_set_period(D_4);
     break;
+    
   case '4':
     buzzer_set_period(EB_4);
     break;
+    
   case '5':
     buzzer_set_period(E_4);
     break;
+    
   case '6':
     buzzer_set_period(F_4);
+    break;
     
   default:
     buzzer_set_period(0);
@@ -141,103 +148,22 @@ s3_SM(){
 }
 
 void
-s3_SM_Measures(){
-  switch(measures){
+s3_SM_Measures(unsigned char input){
+  switch(input){
   case '1':
-    switch(notes){
-    case '1':
-      notes_play = 1;
-      s3_SM();
-      break;
-    case '2':
-      notes_play = 0;
-      s3_SM();
-      notes_play = 1;
-      s3_SM();
-      break;
-    case '3':
-      notes_play = 6:
-      s3_SM();
-      break;
-    case '4':
-      notes_play = 1;
-      s3_SM();
-      break;
-    case '5':
-      notes_play = 0;
-      s3_SM();
-      notes_play = 1;
-      s3_SM();
-      break;
-    case '6':
-      notes_play = 5;
-      s3_SM();
-      break;
-    case '7':
-      notes_play = 1;
-      s3_SM();
-      break;
-    case '8':
-      notes_play = 0;
-      s3_SM();
-      notes_play = 1;
-      s3_SM();
-      break;
-    default:
-      buzzer_set_period(0);
-    } 
+    measure_1(1);
     break;
   case '2':
-    switch(notes){
-    case '1':
-      notes_play = 4;
-      s3_SM();
-      break;
-    case '2':
-      notes_play = 1;
-      s3_SM();
-      break;
-    case '3':
-      notes_play = 0;
-      s3_SM();
-      notes_play = 1;
-      s3_SM();
-      break;
-    case '4':
-      notes_play = 3;
-      s3_SM();
-      break;
-    case '5':
-      notes_play = 1;
-      s3_SM();
-      break;
-    case '6':
-      notes_play = 0;
-      s3_SM();
-      notes_play = 1;
-      s3_SM();
-      break;
-    case '7':
-      notes_play = 2;
-      s3_SM();
-      break;
-    case '8':
-      notes_play = 3;
-      s3_SM()
-      break;
-    default:
-      buzzer_set_period(0);
-      break;
-    }
+    measure_2();
     break;
   case '3':
-    measures = 1;
-    s3_SM_Measures();
+    measure_1(1);
+    break;
+  case '4':
+    measure_3();
     break;
   default:
-    buzzer_set_period(0);
+    buzzer_set_period(1000);
     break;
-  } 
-
-
+  }
 }
