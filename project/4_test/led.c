@@ -3,8 +3,8 @@
 #include "switches.h"
 #include "incrementing.h"
 #include "buzzer.h"
-unsigned char was_Pressed, gone_Once, led_Flags, state = 0;
-unsigned long frqz = 3500;
+unsigned char measures, notes_play,notes, was_Pressed, gone_Once, led_Flags, state = 0;
+unsigned long frqz = 4000;
 void led_init()
 {
   P1DIR |= LEDS;		// bits attached to leds are output
@@ -25,7 +25,7 @@ void buzzer_Update(){ //used to be led_Update
     }
     buzzer_set_period(frqz);
     if(frqz > 0x1388){//3500
-      frqz = 0xDAC;//3500
+      frqz = 0xDAC;//5000
     }
     //P1OUT &= (0xFF - LEDS)|led_Flags;
     //blinkers_Green();
@@ -105,4 +105,139 @@ s2_SM(){
     break;
   }
 }
+void
+change_Note(char new_Note){
+  notes = new_Note;
+  s3_SM();
+}
 
+void
+s3_SM(){
+  switch(notes_play){
+  case '1':
+    buzzer_set_period(F_3);
+    break;
+
+  case '2':
+    buzzer_set_period(DB_4);
+    break;
+
+  case '3':
+    buzzer_set_period(D_4);
+    break;
+  case '4':
+    buzzer_set_period(EB_4);
+    break;
+  case '5':
+    buzzer_set_period(E_4);
+    break;
+  case '6':
+    buzzer_set_period(F_4);
+    
+  default:
+    buzzer_set_period(0);
+    break;
+  }
+}
+
+void
+s3_SM_Measures(){
+  switch(measures){
+  case '1':
+    switch(notes){
+    case '1':
+      notes_play = 1;
+      s3_SM();
+      break;
+    case '2':
+      notes_play = 0;
+      s3_SM();
+      notes_play = 1;
+      s3_SM();
+      break;
+    case '3':
+      notes_play = 6:
+      s3_SM();
+      break;
+    case '4':
+      notes_play = 1;
+      s3_SM();
+      break;
+    case '5':
+      notes_play = 0;
+      s3_SM();
+      notes_play = 1;
+      s3_SM();
+      break;
+    case '6':
+      notes_play = 5;
+      s3_SM();
+      break;
+    case '7':
+      notes_play = 1;
+      s3_SM();
+      break;
+    case '8':
+      notes_play = 0;
+      s3_SM();
+      notes_play = 1;
+      s3_SM();
+      break;
+    default:
+      buzzer_set_period(0);
+    } 
+    break;
+  case '2':
+    switch(notes){
+    case '1':
+      notes_play = 4;
+      s3_SM();
+      break;
+    case '2':
+      notes_play = 1;
+      s3_SM();
+      break;
+    case '3':
+      notes_play = 0;
+      s3_SM();
+      notes_play = 1;
+      s3_SM();
+      break;
+    case '4':
+      notes_play = 3;
+      s3_SM();
+      break;
+    case '5':
+      notes_play = 1;
+      s3_SM();
+      break;
+    case '6':
+      notes_play = 0;
+      s3_SM();
+      notes_play = 1;
+      s3_SM();
+      break;
+    case '7':
+      notes_play = 2;
+      s3_SM();
+      break;
+    case '8':
+      notes_play = 3;
+      s3_SM()
+      break;
+    default:
+      buzzer_set_period(0);
+      break;
+    }
+    break;
+  case '3':
+    measures = 1;
+    s3_SM_Measures();
+    break;
+  default:
+    buzzer_set_period(0);
+    break;
+  } 
+
+
+}

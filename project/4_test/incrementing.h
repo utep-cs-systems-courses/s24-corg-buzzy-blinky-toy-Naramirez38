@@ -11,5 +11,5 @@ void blink_red();
 void red_Control(int on);
 void green_Control(int on);
 void second_control();
-
+void timing_BPM();
 #endif

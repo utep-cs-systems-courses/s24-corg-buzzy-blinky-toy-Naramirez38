@@ -71,7 +71,13 @@ void second_Update(){ //called 250 times per second 250 calls/ 1 sec = 1 call = 
     blink_Lim();
   }
 }
-
+void timing_BPM(){ //288 BPM more or less
+  static int change_notes = 0;
+  static int where_am_i =  0;
+  change_notes++;
+  if(change_notes >= 32)//every eighth note
+    
+}
 void blink_Lim(){
   blinkLimit++;
   if(blinkLimit >= 8)
