@@ -28,11 +28,11 @@ __interrupt_vec(PORT2_VECTOR) Port_2(){
   }
   if(P2IFG & BIT2){
     P2IFG &= ~(BIT2);
+    play_Tune = 1;
     change_State(2);
   }
   if(P2IFG & BIT3){
     P2IFG &= ~(BIT3);
-    play_Tune = 1;
     change_State(3);
   }
 }

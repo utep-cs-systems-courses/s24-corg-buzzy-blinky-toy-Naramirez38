@@ -28,51 +28,48 @@ void buzzer_set_period(short cycles) /* buzzer clock = 2MHz.  (period of 1k resu
 }
 
 void
-measure_1(unsigned char input){
-  switch(input){
-
-  case '1':
+measure_1(unsigned int notes_){
+  static unsigned int notes_play = 1;
+  switch(notes_){
+  case 1:
     notes_play = 1;
     s3_SM(notes_play);
     break;
 
-  case '2':
-    notes_play = 0;
-    s3_SM(notes_play);
+  case 2:
     notes_play = 1;
     s3_SM(notes_play);
     break;
-
-  case '3':
+  case 3:
     notes_play = 6;
     s3_SM(notes_play);
     break;
 
-  case '4':
+  case 4:
     notes_play = 1;
     s3_SM(notes_play);
     break;
 
-  case '5':
-    notes_play = 0;
-    s3_SM(notes_play);
+  case 5:
+    //notes_play = 0;
+    // s3_SM(notes_play);
     notes_play = 1;
     s3_SM(notes_play);
     break;
 
-  case '6':
+  case 6:
     notes_play = 5;
     s3_SM(notes_play);
     break;
     
-  case '7':
+  case 7:
     notes_play = 1;
     s3_SM(notes_play);
     break;
     
-  case '8':
-    notes_play = 0;
-    s3_SM(notes_play);
+  case 8:
+    //notes_play = 0;
+    //s3_SM(notes_play);
     notes_play = 1;
     s3_SM(notes_play);
     break;
@@ -83,49 +80,50 @@ measure_1(unsigned char input){
 }
 
 void
-measure_2(){
-  switch(notes){
+measure_2(unsigned int notes_){
+  static unsigned int notes_play = 1;
+  switch(notes_){
 
-  case '1':
+  case 1:
     notes_play = 4;
     s3_SM(notes_play);
     break;
 
-  case '2':
+  case 2:
     notes_play = 1;
     s3_SM(notes_play);
     break;
 
-  case '3':
-    notes_play = 0;
-    s3_SM(notes_play);
+  case 3:
+    //notes_play = 0;
+    //s3_SM(notes_play);
     notes_play = 1;
     s3_SM(notes_play);
     break;
 
-  case '4':
+  case 4:
     notes_play = 3;
     s3_SM(notes_play);
     break;
 
-  case '5':
+  case 5:
     notes_play = 1;
     s3_SM(notes_play);
     break;
 
-  case '6':
-    notes_play = 0;
-    s3_SM(notes_play);
+  case 6:
+    //notes_play = 0;
+    //s3_SM(notes_play);
     notes_play = 1;
     s3_SM(notes_play);
     break;
 
-  case '7':
+  case 7:
     notes_play = 2;
     s3_SM(notes_play);
     break;
 
-  case '8':
+  case 8:
     notes_play = 3;
     s3_SM(notes_play);
     break;
@@ -137,47 +135,48 @@ measure_2(){
 } 
 
 void
-measure_3(){
-  switch(notes){
-    case '1':
+measure_3(unsigned int notes_){
+  static unsigned int notes_play = 1;
+  switch(notes_){
+    case 1:
       notes_play = 4;
       s3_SM(notes_play);
       break;
 
-    case '2':
+    case 2:
       notes_play = 1;
       s3_SM(notes_play);
       break;
 
-    case '3':
+    case 3:
       notes_play = 0;
       s3_SM(notes_play);
       notes_play = 1;
       s3_SM(notes_play);
       break;
 
-    case '4':
-      notes_play = 1;
+    case 4:
+      notes_play = 3;
       s3_SM(notes_play);
       break;
 
-    case '5':
-      notes_play = 4;
+    case 5:
+      notes_play = 3;
       s3_SM(notes_play);
       break;
 
-    case '6':
-      notes_play = 4;
+    case 6:
+      notes_play = 3;
       s3_SM(notes_play);
       break;
 
-    case '7':
-      notes_play = 4;
+    case 7:
+      notes_play = 3;
       s3_SM(notes_play);
       break;
 
-    case '8':
-      notes_play = 4;
+    case 8:
+      notes_play = 3;
       s3_SM(notes_play);
       break;
 

@@ -10,7 +10,10 @@
 
 void buzzer_init();
 void buzzer_set_period(short cycles);
-void measure_1(unsigned char input);
-void measure_2();
-void measure_3();
+void carry_State(unsigned char measure_, unsigned char notes_, unsigned char notes_play_);
+void full_Tune(unsigned int notes_);
+void measure_1(unsigned int notes_);
+void measure_2(unsigned int notes_);
+void measure_3(unsigned int notes_);
+void change_Notes_(short value);
 #endif // included

@@ -5,8 +5,7 @@
 #include "switches.h"
 #include "incrementing.h"
 #include "buzzer.h"
-
-unsigned char notes_play, notes = 0;
+unsigned char state_Note = 1;
 unsigned char measures = 1;
 
 void wdt_init(){
@@ -76,22 +75,23 @@ void second_Update(){ //called 250 times per second 250 calls/ 1 sec = 1 call = 
     blink_Lim();
   }
 }
-
+static unsigned int notes = 0;
+static unsigned int measure = 1;
 void timing_BPM(){ //240 BPM more or less
   static int change_notes = 0;
   change_notes++;
-  if(change_notes >= 250/*32*/){//increment eighth notes
+  if(change_notes >= 32){//increment eighth notes
     change_notes = 0;
     notes++;
     if(notes >= 9){//controls where beat is
-      notes = 1;
+      notes = 0;
       measures++;
       if(measures >= 5){//controls which measure is played
 	measures = 1;
-	
       }
     }
-  }
+    s3_SM_Measures(measures,notes);
+   }
 }
 void blink_Lim(){
   blinkLimit++;

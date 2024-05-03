@@ -4,7 +4,7 @@
 #include "incrementing.h"
 #include "buzzer.h"
 unsigned char play_Tune, was_Pressed, gone_Once, led_Flags, state = 0;
-unsigned long frqz = 4000;
+unsigned long frqz = 3500;
 void led_init()
 {
   P1DIR |= LEDS;		// bits attached to leds are output
@@ -24,8 +24,8 @@ void buzzer_Update(){ //used to be led_Update
       frqz -= 0xC4;//100
     }
     buzzer_set_period(frqz);
-    if(frqz > 0x1388){//3500
-      frqz = 0xDAC;//5000
+    if(frqz > 0x8CA2){//4500
+      frqz = 0xDAC;//3500
     }
     //P1OUT &= (0xFF - LEDS)|led_Flags;
     //blinkers_Green();
@@ -87,15 +87,12 @@ s2_SM(){
     break;
       
   case 2:
-    blinkers_Green();
-    /*if(play_Tune){
-    buzzer_set_period(DB_4);
-    }*/
-    // measure_1(1);
+    blinkers_Red();
+    
     break;
 
   case 3:
-    led_Off();
+    //led_Off();
     buzzer_set_period(0);
     break;
       
@@ -109,35 +106,29 @@ s2_SM(){
 }
 
 void
-change_Note(unsigned char new_Note){
-  notes = new_Note;
-  s3_SM(notes_play);
-}
-
-void
-s3_SM(unsigned char input){
-  switch(input){
-  case '1':
+s3_SM(unsigned int notes_play){
+  switch(notes_play){
+  case 1:
     buzzer_set_period(F_3);
     break;
 
-  case '2':
+  case 2:
     buzzer_set_period(DB_4);
     break;
 
-  case '3':
+  case 3:
     buzzer_set_period(D_4);
     break;
     
-  case '4':
+  case 4:
     buzzer_set_period(EB_4);
     break;
     
-  case '5':
+  case 5:
     buzzer_set_period(E_4);
     break;
     
-  case '6':
+  case 6:
     buzzer_set_period(F_4);
     break;
     
@@ -148,19 +139,19 @@ s3_SM(unsigned char input){
 }
 
 void
-s3_SM_Measures(unsigned char input){
-  switch(input){
-  case '1':
-    measure_1(1);
+s3_SM_Measures(unsigned int measures_, unsigned int notes_){
+  switch(measures_){
+  case 1:
+    measure_1(notes_);
     break;
-  case '2':
-    measure_2();
+  case 2:
+    measure_2(notes_);
     break;
-  case '3':
-    measure_1(1);
+  case 3:
+    measure_1(notes_);
     break;
-  case '4':
-    measure_3();
+  case 4:
+    measure_3(notes_);
     break;
   default:
     buzzer_set_period(1000);

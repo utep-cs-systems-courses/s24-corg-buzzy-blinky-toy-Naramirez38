@@ -25,11 +25,11 @@ void blinkers_Green();
 void blinkers_Red();
 void change_State(short new_state);
 void buzzer_Update();
-void s3_SM(unsigned char input);
-void s3_SM_Measures(unsigned char input);
+void s3_SM(unsigned int input);
+void s3_SM_Measures(unsigned int measures_, unsigned int notes_);
 void change_Note(unsigned char new_Note);
 // these are boolesan flags
-extern unsigned char play_Tune, measures, notes_play ,notes, was_Pressed, gone_Once, state, led_Flags, leds_changed, green_led_state, red_led_state;
+extern unsigned char play_Tune, was_Pressed, gone_Once, state, led_Flags, leds_changed, green_led_state, red_led_state;
 extern unsigned long frqz;
 
 #endif
